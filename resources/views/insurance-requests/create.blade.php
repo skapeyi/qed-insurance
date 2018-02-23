@@ -104,7 +104,7 @@
 					</span>
 					@endif
 				</div>
-				
+
 				<div class="form-group">
 					{!! Form::label('year_of_manufacture','Year of Manufacture') !!}
 					{!! Form::text('year_of_manufacture','',['class' => 'form-control']) !!}
@@ -152,7 +152,7 @@
 				</div>
 				<div class="form-group">
 					{!! Form::label('statutory','Statutory?') !!}
-					{!! Form::checkbox('statutory', 0, null, ['class' => 'checkbox-inline']) !!}
+					{!! Form::select('statutory', ['0'=>'No','1' => 'Yes'], null, ['class' => 'form-control']) !!}
 					@if ($errors->has('statutory'))
 					<span class="help-block">
 						<strong>{{ $errors->first('statutory') }}</strong>
@@ -161,7 +161,7 @@
 				</div>
 				<div class="form-group">
 					{!! Form::label('third_party_property_damage','Third Party Property Damage?') !!}
-					{!! Form::checkbox('third_party_property_damage', 0, null, ['class' => 'checkbox-inline']) !!}
+					{!! Form::select('third_party_property_damage', ['0'=>'No','1' => 'Yes'], null, ['class' => 'form-control']) !!}
 					@if ($errors->has('third_party_property_damage'))
 					<span class="help-block">
 						<strong>{{ $errors->first('third_party_property_damage') }}</strong>

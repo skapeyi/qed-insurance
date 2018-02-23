@@ -6,28 +6,48 @@
 		<h2 class="panel-title">My Insurance Requests</h2>
 	</div>
 	<div class="panel-body">
-		@if(count($myRequests)< 1)
-		<div class="alert alert-info">
-			<p>You haven't made any requests yet!</p>
-		</div>
-		@else
+		<div class="col-md-12">
 		<div class="table-responsive">
-			<table class="table table-bordered table-responsive" id="organization-table">
+			<table class="table table-hover" id="table-1">
 				<thead>
 					<tr>						
 						<th>Date Created</th>
+						<th>Name</th>
 						<th>Start period</th>
-						<th>End Period</th>
+						<th>End period</th>
+						<th>Car Make</th>
 						<th>Registraton No.</th>
-						<th>Registration Owner</th>
-						<th>Make</th>
-						<th>Color</th>
+						<th>Status</th>
 						<th>Actions</th>
 					</tr>
 				</thead>				
 			</table>
 		</div>
-		@endif
+		</div>
+	
 	</div>
 </div>
 @endsection
+
+@push('js')
+<script>
+$(function() {
+    $('#table-1').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{!! route('myrequests.data') !!}',
+        columns: [
+            { data: 'created_at', name: 'created_at' },
+			{ data: 'name', name: 'name'},
+            { data: 'insurance_period_start', name: 'insurance_period_start' },
+			{ data: 'insurance_period_end', name: 'insurance_period_end' },
+            { data: 'make', name: 'make' },
+            { data: 'reg_number', name: 'reg_number' },
+            { data: 'status', name: 'status' },
+			{ data: 'action', name:'action', orderable: false, searchable: false}
+			
+        ]
+    });
+});
+</script>
+@endpush

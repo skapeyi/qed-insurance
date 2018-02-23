@@ -109,12 +109,8 @@ return [
     */
 
     'menu' => [
-        'MAIN NAVIGATION',        
-        [
-            'text'        => 'DashBoard',
-            'url'         => 'admin/pages',
-            'icon'        => 'file',
-        ],
+        'MAIN NAVIGATION',      
+        
         [
             'text'        => 'My Requests',
             'url'         => '/insurance-request',
@@ -138,6 +134,11 @@ return [
         ],
         
         'ADMINISTRATOR',
+        [
+            'text'        => 'Stats',
+            'url'         => 'admin/statistics',
+            'icon'        => 'envelope',
+        ],
         [
             'text'       => 'Manage Users',
             'url' => '/admin/users',

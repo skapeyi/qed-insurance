@@ -18,6 +18,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/insurance-request','InsuranceRequestController');
+Route::get('/my-requests','InsuranceRequestController@getMyRequests')->name('myrequests.data');
 
 Route::get('/change-password','AccountController@changePassword');
 Route::post('/update-password','AccountController@updatePassword')->name('updatePassword');
@@ -25,5 +26,8 @@ Route::post('/update-password','AccountController@updatePassword')->name('update
 Route::get('/my-profile','AccountController@myProfile');
 Route::post('/update-profile','AccountController@updateProfile')->name('updateProfile');
 
+Route::get('/admin/statistics','AdminController@statistics');
 Route::get('/admin/users','AdminController@manageUsers');
 Route::get('/admin/insurance-requests','AdminController@allInsuranceRequests');
+Route::get('/admin/allrequests','AdminController@allInsRequestsData')->name('allrequests.data');
+Route::get('/admin/allusers','AdminController@getUsers')->name('users.data');
