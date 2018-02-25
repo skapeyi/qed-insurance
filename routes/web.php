@@ -31,3 +31,5 @@ Route::get('/admin/users','AdminController@manageUsers');
 Route::get('/admin/insurance-requests','AdminController@allInsuranceRequests');
 Route::get('/admin/allrequests','AdminController@allInsRequestsData')->name('allrequests.data');
 Route::get('/admin/allusers','AdminController@getUsers')->name('users.data');
+Route::get('/admin/users/{id}','AdminController@showUser');
+Route::patch('/admin/users','AdminController@updateUser')->name('admin.users.update');

@@ -10,6 +10,16 @@ use App\Http\Requests\UpdateProfileRequest;
 
 class AccountController extends Controller
 {
+	 /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+	}
+	
 	public function myProfile(){
 		$user = Auth::user();
 		return view('account.profile', compact('user'));

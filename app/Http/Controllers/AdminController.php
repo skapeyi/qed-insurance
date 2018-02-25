@@ -18,7 +18,7 @@ class AdminController extends Controller
     public function getUsers(){
         $all_users = User::select();
         return DataTables::of($all_users)->addColumn('action', function ($user){
-            return '<a href="/users/'.$user->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
+            return '<a href="/admin/users/'.$user->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
         })->make(true);
     }
 
@@ -35,5 +35,10 @@ class AdminController extends Controller
 
     public function statistics(){
         return view('admin.stats');
+    }
+
+    public function showUser($id){
+        $user = User::find($id);
+        return view('admin.show_user',compact('user'));
     }
 }

@@ -6,7 +6,7 @@
       <h2 class="panel-title">Update Profile</h2>
     </div>
     <div class="panel-body">
-      {!! Form::open(['route' => 'updateProfile']) !!}
+      {!! Form::model(['method' => 'POST','route' => 'updateProfile', $user]) !!}
       <div class="form-group">
         {!! Form::label('name','Name') !!}
         {!! Form::text('name',$user->name,['class' => 'form-control']) !!}
