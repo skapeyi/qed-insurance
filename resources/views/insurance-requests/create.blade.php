@@ -1,5 +1,7 @@
 @extends('adminlte::page')
-
+@push('css')
+<link href="{{ asset('js/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
+@endpush
 @section('content')
 
 <div class="panel panel-default">
@@ -31,7 +33,7 @@
 				</div>
 				<div class="form-group">
 					{!! Form::label('insurance_period_start','Beginning of Insurance Period')!!}
-					{!! Form::text('insurance_period_start','',['class' => 'form-control']) !!}
+					{!! Form::text('insurance_period_start','',['class' => 'form-control datepicker']) !!}
 					@if ($errors->has('insurance_period_start'))
 					<span class="help-block">
 						<strong>{{ $errors->first('insurance_period_start') }}</strong>
@@ -40,7 +42,7 @@
 				</div>
 				<div class="form-group">
 					{!! Form::label('insurance_period_end','End of Insurance Period')!!}
-					{!! Form::text('insurance_period_end','',['class' => 'form-control']) !!}
+					{!! Form::text('insurance_period_end','',['class' => 'form-control datepicker']) !!}
 					@if ($errors->has('insurance_period_end'))
 					<span class="help-block">
 						<strong>{{ $errors->first('insurance_period_end') }}</strong>
@@ -189,3 +191,11 @@
 </div>
 
 @endsection
+@push('js')
+<script src="{{ asset('js/jquery-ui/jquery-ui.min.js') }}"></script>
+<script type="text/javascript">
+	$('.datepicker').datepicker({
+		'dateFormat': 'yy-mm-dd'
+	});
+</script>
+@endpush

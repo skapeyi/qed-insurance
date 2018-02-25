@@ -52,7 +52,6 @@ class AccountController extends Controller
 	}
 
 	public function updatePassword(ChangePasswordRequest $request){
-		Log::info($request);
 		if (Auth::attempt(['email' => Auth::user()->email, 'password' => $request->old])) {
 					$user = Auth::user();
 			$user->password = bcrypt($request->new);
