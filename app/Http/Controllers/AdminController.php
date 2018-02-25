@@ -18,7 +18,7 @@ class AdminController extends Controller
     public function getUsers(){
         $all_users = User::select();
         return DataTables::of($all_users)->addColumn('action', function ($user){
-            return '<a href="#view/'.$user->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
+            return '<a href="/users/'.$user->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
         })->make(true);
     }
 
@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function allInsRequestsData(){
         $all_requests = InsuranceRequest::select();
         return DataTables::of($all_requests)->addColumn('action', function ($request){
-            return '<a href="#view/'.$request->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
+            return '<a href="/insurance-request/'.$request->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
         })->make(true);
     }
 

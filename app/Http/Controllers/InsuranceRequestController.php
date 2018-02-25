@@ -25,7 +25,7 @@ class InsuranceRequestController extends Controller
 
     public function getMyRequests(){
         return DataTables::of(InsuranceRequest::where(['user_id' => Auth::user()->id]))->addColumn('action', function ($request){
-            return '<a href="#view/'.$request->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
+            return '<a href="/insurance-request/'.$request->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
         })->make(true);
     }
 
@@ -90,7 +90,8 @@ class InsuranceRequestController extends Controller
      */
     public function show($id)
     {
-        //
+        $ins = InsuranceRequest::find($id);
+        return view('insurance-requests.show', compact('ins'));
     }
 
     /**
