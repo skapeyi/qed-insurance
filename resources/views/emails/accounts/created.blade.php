@@ -2,7 +2,7 @@
 # Welcome
 
 Dear {{ $name }},<br>
-Thank you for joining CritiCare. <br>
+Thank you for joining our service. <br>
 You will be able to access your account once the administrator activates your account.
 
 

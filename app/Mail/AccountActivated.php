@@ -33,7 +33,6 @@ class AccountActivated extends Mailable
     {
         return $this->markdown('emails.accounts.activated')
         ->from(env('SUPPORT_EMAIL'),env('APP_NAME'))
-        ->bcc(env('SUPPORT_EMAIL'))
         ->subject('Account Changes');
     }
 }
