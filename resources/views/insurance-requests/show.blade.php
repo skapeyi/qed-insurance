@@ -1,4 +1,7 @@
 @extends('adminlte::page')
+@push('css')
+<link href="{{ asset('css/timeline.css') }}" rel="stylesheet">
+@endpush
 
 @section('content')
 
@@ -177,13 +180,94 @@
 					</span>
 					@endif
 				</div>
-				
+
 			</div>
 		</div>
 
 
 	</div>
+	{!! Form::close() !!}
+</div>
 
+<div class="container">
+
+    <!-- Page header -->
+    <div class="page-header">
+        <h2>Request Updates!</h2>
+    </div>
+    <!-- /Page header -->
+</div>
+<div class="container">
+	<!-- New Update -->
+	{!! Form::open(['route' => 'request-updates']) !!}
+
+		{!! Form::hidden('_ins_req',$ins->id) !!}
+		{!! Form::hidden('_ins_author', $ins->user_id) !!}
+
+		<div class="form-group">
+			{!! Form::label('update','Your Comment') !!}
+			{!! Form::textarea('update','',['class' => 'form-control', 'rows'=>3])!!}
+		</div>
+
+		@hasrole('Staff')
+		<div class="form-group">
+			{!! Form::label('status','Request Status') !!}
+			{!! Form::select('status', ['Pending'=>'Pending','Under Review' => 'Under Review','Cancelled' => 'Cancelled','Ready for Pickup' => 'Ready for Pickup','Completed' => 'Completed',], $ins->status, ['class' => 'form-control']) !!}
+		</div>
+		@endhasrole
+
+		<div class="form-group">
+		{!! Form::submit('Update Request', array('class' => 'btn btn-primary pull-right')) !!}
+
+	</div>
+
+	<!-- /New Update -->
+</div>
+		<div class="container"
+
+    <!-- Timeline -->
+    <div class="timeline">
+
+        <!-- Line component -->
+        <div class="line text-muted"></div>
+				@foreach($ins_updates as $item)
+
+        <!-- Panel -->
+        <article class="panel panel-primary">
+
+            <!-- Icon -->
+            <div class="panel-heading icon">
+                <i class="glyphicon glyphicon-plus"></i>
+            </div>
+            <!-- /Icon -->
+
+            <!-- Heading -->
+            <div class="panel-heading">
+                <h2 class="panel-title">New Update</h2>
+            </div>
+            <!-- /Heading -->
+
+            <!-- Body -->
+            <div class="panel-body">
+                {{$item->update}}
+            </div>
+            <!-- /Body -->
+
+            <!-- Footer -->
+            <div class="panel-footer">
+                <small>{{$item->created_at}}</small>
+            </div>
+            <!-- /Footer -->
+
+        </article>
+        <!-- /Panel -->
+				@endforeach
+
+
+    </div>
+    <!-- /Timeline -->
+
+</div>
 </div>
 
 @endsection

@@ -6,6 +6,7 @@ use Log;
 use Auth;
 use DataTables;
 use App\InsuranceRequest;
+use App\InsuranceRequestUpdate;
 use App\Http\Requests\GetInsuranceRequest;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class InsuranceRequestController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -79,7 +80,7 @@ class InsuranceRequestController extends Controller
         $ins->user_id = Auth::user()->id;
         $ins->acknowledgement = 1;
         $ins->status = "Pending";
-        
+
         try{
             if($ins->save()){
                 flash("Your request has been saved, we will contact you with further details")->success();
@@ -101,7 +102,8 @@ class InsuranceRequestController extends Controller
     public function show($id)
     {
         $ins = InsuranceRequest::find($id);
-        return view('insurance-requests.show', compact('ins'));
+        $ins_updates = InsuranceRequestUpdate::where(['insurance_request_id' =>  $id])->orderBy('created_at','DESC')->get();
+        return view('insurance-requests.show', compact('ins','ins_updates'));
     }
 
     /**
@@ -140,5 +142,28 @@ class InsuranceRequestController extends Controller
 
     public function myRequests(Request $request){
 
+    }
+
+    public function requestUpdate(Request $request){
+      if(Auth::user()->hasRole('Staff')){
+        $ins = InsuranceRequest::find($request->_ins_req);
+        $ins->status = $request->status;
+        $ins->save();
+        $update = new InsuranceRequestUpdate();
+        $update->insurance_request_id = $request->_ins_req;
+        $update->created_by = Auth::user()->id;
+        $update->update = 'The status of your request has changed!';
+        $update->save();
+        flash('Update saved!')->success();
+      }
+      if(isset($request->update)){
+        $update = new InsuranceRequestUpdate();
+        $update->insurance_request_id = $request->_ins_req;
+        $update->created_by = Auth::user()->id;
+        $update->update = $request->update;
+        $update->save();
+        flash('Update saved');
+      }
+      return redirect()->back();
     }
 }

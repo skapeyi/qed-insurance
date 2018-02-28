@@ -19,6 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/insurance-request','InsuranceRequestController');
 Route::get('/my-requests','InsuranceRequestController@getMyRequests')->name('myrequests.data');
+Route::post('/request-updates','InsuranceRequestController@requestUpdate')->name('request-updates');
 
 Route::get('/change-password','AccountController@changePassword');
 Route::post('/update-password','AccountController@updatePassword')->name('updatePassword');
