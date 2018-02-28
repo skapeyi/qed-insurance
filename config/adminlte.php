@@ -109,8 +109,8 @@ return [
     */
 
     'menu' => [
-        'MAIN NAVIGATION',      
-        
+        'MAIN NAVIGATION',
+
         [
             'text'        => 'My Requests',
             'url'         => '/insurance-request',
@@ -131,24 +131,7 @@ return [
             'text' => 'Change Password',
             'url'  => '/change-password',
             'icon' => 'lock',
-        ],
-        
-        'ADMINISTRATOR',
-        [
-            'text'        => 'Stats',
-            'url'         => 'admin/statistics',
-            'icon'        => 'envelope',
-        ],
-        [
-            'text'       => 'Manage Users',
-            'url' => '/admin/users',
-            'icon' => 'users',
-        ],
-        [
-            'text'       => 'Manage Insurance Requests',
-            'url' => '/admin/insurance-requests',
-            'icon' => 'filter',
-        ]
+        ]        
     ],
 
     /*
@@ -168,7 +151,7 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
+        //JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
     ],
 
     /*

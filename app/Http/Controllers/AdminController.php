@@ -11,6 +11,16 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function manageUsers(){
     	return view('admin.users');
     }
@@ -18,7 +28,7 @@ class AdminController extends Controller
     public function getUsers(){
         $all_users = User::select();
         return DataTables::of($all_users)->addColumn('action', function ($user){
-            return '<a href="/admin/users/'.$user->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
+            return '<a href="/users/'.$user->id.'/edit" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
         })->make(true);
     }
 

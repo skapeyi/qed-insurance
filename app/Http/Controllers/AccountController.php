@@ -17,7 +17,7 @@ class AccountController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       $this->middleware('auth');
 	}
 	
 	public function myProfile(){
@@ -39,7 +39,7 @@ class AccountController extends Controller
 		try {
 			if($user->save()){
 				flash('Updated Profile')->success();
-				return redirect()->back();
+				return redirect('/my-profile');
 			}
 		} catch (Exception $e) {
 			Log::info($e);

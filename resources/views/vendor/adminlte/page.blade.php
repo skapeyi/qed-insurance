@@ -94,6 +94,45 @@
                   <!-- Sidebar Menu -->
                   <ul class="sidebar-menu" data-widget="tree">
                       @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+
+                          @hasrole('Staff')
+                          <li class="header">STAFF ROLES</li>
+                          <li class="">
+                            <a href="/admin/statistics">
+                              <i class="fa fa-fw fa-tachometer "></i>
+                              <span>Stats</span>
+                            </a>
+                          </li>
+                          <li class="">
+                            <a href="/admin/insurance-requests">
+                              <i class="fa fa-fw fa-filter "></i>
+                              <span>Manage Insurance Requests</span>
+                            </a>
+                          </li>
+                          @endrole
+
+                          @hasrole('Super Administrator')
+                          <li class="header">SUPER ADMINISTRATOR</li>
+                          <li class="">
+                            <a href="/admin/users">
+                              <i class="fa fa-fw fa-users "></i>
+                                <span>Manage Users</span>
+                            </a>
+                          </li>
+                        <li class="active">
+                          <a href="/roles">
+                            <i class="fa fa-fw fa-check "></i>
+                            <span>Roles</span>
+                          </a>
+                        </li>
+                        <li class="">
+                          <a href="/permissions">
+                            <i class="fa fa-fw fa-key "></i>
+                            <span>Permissions</span>
+                          </a>
+                        </li>
+                        @endrole
+
                   </ul>
                   <!-- /.sidebar-menu -->
               </section>

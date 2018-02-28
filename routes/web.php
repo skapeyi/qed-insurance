@@ -24,7 +24,7 @@ Route::get('/change-password','AccountController@changePassword');
 Route::post('/update-password','AccountController@updatePassword')->name('updatePassword');
 
 Route::get('/my-profile','AccountController@myProfile');
-Route::post('/update-profile','AccountController@updateProfile')->name('updateProfile');
+Route::post('/update-profile','AccountController@updateProfile')->name('update-profile');
 
 Route::get('/admin/statistics','AdminController@statistics');
 Route::get('/admin/users','AdminController@manageUsers');
@@ -33,3 +33,7 @@ Route::get('/admin/allrequests','AdminController@allInsRequestsData')->name('all
 Route::get('/admin/allusers','AdminController@getUsers')->name('users.data');
 Route::get('/admin/users/{id}','AdminController@showUser');
 Route::patch('/admin/users','AdminController@updateUser')->name('admin.users.update');
+
+Route::resource('roles','RoleController');
+Route::resource('/users','UserController');
+Route::resource('permissions','PermissionController');
