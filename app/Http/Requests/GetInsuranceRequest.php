@@ -39,7 +39,16 @@ class GetInsuranceRequest extends FormRequest
             'third_party_property_damage' => 'required',
             'tonnage' => 'numeric|required',
             'use' => 'required',
-            'year_of_manufacture' => 'required'
+            'year_of_manufacture' => 'required',
+            'log_book' => 'max:1024',
+            'your_id' => 'max:1024'
         ];
+    }
+
+    public function messages(){
+      return [
+        'log_book.max' => 'Maximum allowed size is 1MB.',
+        'your_id.max' => 'Maximum allowed size is 1MB'
+      ];
     }
 }

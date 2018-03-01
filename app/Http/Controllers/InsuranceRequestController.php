@@ -60,8 +60,9 @@ class InsuranceRequestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(GetInsuranceRequest $request)
-    {
+    {     
         $ins = new InsuranceRequest();
+        $ins->ref_no = $this->randomString();
         $ins->name = $request->name;
         $ins->address = $request->address;
         $ins->insurance_period_start = $request->insurance_period_start;
@@ -83,6 +84,18 @@ class InsuranceRequestController extends Controller
         $ins->user_id = Auth::user()->id;
         $ins->acknowledgement = 1;
         $ins->status = "Pending";
+
+        // Process the files......
+        if($request->hasFile('log_book')){
+          $log_book = $request->file('log_book');
+          $ins->log_book_url = "uploads/".$ins->ref_no.'_'.$log_book->getClientOriginalName();
+          $log_book->move('uploads',$ins->ref_no.'_'.$log_book->getClientOriginalName());
+        }
+        if($request->hasFile('your_id')){
+          $your_id = $request->file('your_id');
+          $ins->id_doc_url = "uploads/".$ins->ref_no.'_'.$your_id->getClientOriginalName();
+          $your_id->move('uploads',$ins->ref_no.'_'.$your_id->getClientOriginalName());
+        }
 
         try{
             if($ins->save()){
@@ -175,5 +188,16 @@ class InsuranceRequestController extends Controller
         flash('Update saved');
       }
       return redirect()->back();
+    }
+
+    public function randomString($length = 9) {
+	     $str = "";
+	     $characters = array_merge(range('A','Z'),range('0','9'));
+	     $max = count($characters) - 1;
+	     for ($i = 0; $i < $length; $i++) {
+		       $rand = mt_rand(0, $max);
+		       $str .= $characters[$rand];
+	      }
+	      return $str;
     }
 }

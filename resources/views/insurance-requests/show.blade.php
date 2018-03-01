@@ -155,7 +155,7 @@
 				</div>
 				<div class="form-group">
 					{!! Form::label('statutory','Statutory?') !!}
-					{!! Form::select('statutory', ['0'=>'No','1' => 'Yes'], null, ['class' => 'form-control','readonly']) !!}
+					{!! Form::select('statutory', ['0'=>'No','1' => 'Yes'], $ins->statutory, ['class' => 'form-control','readonly']) !!}
 					@if ($errors->has('statutory'))
 					<span class="help-block">
 						<strong>{{ $errors->first('statutory') }}</strong>
@@ -164,7 +164,7 @@
 				</div>
 				<div class="form-group">
 					{!! Form::label('third_party_property_damage','Third Party Property Damage?') !!}
-					{!! Form::select('third_party_property_damage', ['0'=>'No','1' => 'Yes'], null, ['class' => 'form-control','readonly']) !!}
+					{!! Form::select('third_party_property_damage', ['0'=>'No','1' => 'Yes'], $ins->third_party_property_damage, ['class' => 'form-control','readonly']) !!}
 					@if ($errors->has('third_party_property_damage'))
 					<span class="help-block">
 						<strong>{{ $errors->first('third_party_property_damage') }}</strong>
@@ -173,14 +173,21 @@
 				</div>
 				<div class="form-group">
 					{!! Form::label('third_party_property_damage_limit','Third Party Property Damage Limit') !!}
-					{!! Form::text('third_party_property_damage_limit','',['class' => 'form-control','readonly']) !!}
+					{!! Form::text('third_party_property_damage_limit',$ins->third_party_property_damage_limit,['class' => 'form-control','readonly']) !!}
 					@if ($errors->has('third_party_property_damage_limit'))
 					<span class="help-block">
 						<strong>{{ $errors->first('third_party_property_damage_limit') }}</strong>
 					</span>
 					@endif
 				</div>
-
+				<div class="form-group">
+					@if(isset($ins->log_book_url))
+					 <a href="{{URL::asset('/'.$ins->log_book_url)}}" class="btn btn-primary"> Download Log Book </a>
+					@endif
+					@if(isset($ins->id_doc_url))
+					 <a href="{{URL::asset('/'.$ins->id_doc_url)}}" class="btn btn-primary"> Download Indentification Document </a>
+					@endif
+				</div>		
 			</div>
 		</div>
 

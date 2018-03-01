@@ -9,7 +9,7 @@
 		<h2 class="panel-title pull-left">New Insurance Request</h2>
 		<div class="clearfix"></div>
 	</div>
-	{!! Form::open(['route' => 'insurance-request.store']) !!}
+	{!! Form::open(['route' => 'insurance-request.store','files' => 'true']) !!}
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-6">
@@ -94,9 +94,6 @@
 					</span>
 					@endif
 				</div>
-
-			</div>
-			<div class="col-md-6">
 				<div class="form-group">
 					{!! Form::label('cubic_capacity','Cubic Capacity') !!}
 					{!! Form::text('cubic_capacity','',['class' => 'form-control']) !!}
@@ -106,7 +103,9 @@
 					</span>
 					@endif
 				</div>
-
+				
+			</div>
+			<div class="col-md-6">
 				<div class="form-group">
 					{!! Form::label('year_of_manufacture','Year of Manufacture') !!}
 					{!! Form::text('year_of_manufacture','',['class' => 'form-control']) !!}
@@ -176,6 +175,24 @@
 					@if ($errors->has('third_party_property_damage_limit'))
 					<span class="help-block">
 						<strong>{{ $errors->first('third_party_property_damage_limit') }}</strong>
+					</span>
+					@endif
+				</div>
+				<div class="form-group">
+					{!! Form::label('log_book','Copy Of Log Book (Max 1MB)') !!}
+					{!! Form::file('log_book',['class' => 'form-control']) !!}
+					@if ($errors->has('log_book'))
+					<span class="help-block">
+						<strong>{{ $errors->first('log_book') }}</strong>
+					</span>
+					@endif
+				</div>
+				<div class="form-group">
+					{!! Form::label('your_id','Your Identification Document (Max 1MB)') !!}
+					{!! Form::file('your_id',['class' => 'form-control']) !!}
+					@if ($errors->has('your_id'))
+					<span class="help-block">
+						<strong>{{ $errors->first('your_id') }}</strong>
 					</span>
 					@endif
 				</div>
