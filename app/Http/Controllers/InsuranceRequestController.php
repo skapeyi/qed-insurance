@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Log;
+use Mail;
 use Auth;
 use DataTables;
+use App\User;
 use App\InsuranceRequest;
 use App\InsuranceRequestUpdate;
 use App\Http\Requests\GetInsuranceRequest;
+use App\Mail\InsuranceRequestStatusChanged;
 use Illuminate\Http\Request;
 
 
@@ -153,7 +156,14 @@ class InsuranceRequestController extends Controller
         $update->insurance_request_id = $request->_ins_req;
         $update->created_by = Auth::user()->id;
         $update->update = 'The status of your request has changed!';
+        //send mail
+        $mailer = new InsuranceRequestStatusChanged();
+        $customer = User::find($ins->user_id);
+        $mailer->name = $customer->name;
+        $mailer->ref_no = $ins->ref_no;
+        Mail::to($customer->email)->send($mailer);
         $update->save();
+
         flash('Update saved!')->success();
       }
       if(isset($request->update)){
