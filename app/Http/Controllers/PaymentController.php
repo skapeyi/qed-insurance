@@ -6,7 +6,10 @@ use DB;
 use Log;
 use Auth;
 use Mail;
-
+use App\Payment;
+use App\InsuranceRequest;
+use App\Library\YoPayments\YoAPI;
+use App\Http\Requests\PaymentRequest;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -26,9 +29,18 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $ins = InsuranceRequest::find($id);
+        if($ins->amount > 0){
+          $payments = Payment::where(['insurance_request_id' => $id])->paginate(5);
+
+          return view('payments.create',compact('payments','ins'));
+        }else{
+          flash('Please wait until your application is reviewed and amount for you to pay is set for you to proceed')->warning();
+          return redirect()->back();
+        }
+
     }
 
     /**
@@ -37,9 +49,40 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PaymentRequest $request)
     {
-        //
+        $payment = new Payment();
+        $payment->amount = $request->amount;
+        $payment->phone_number = $request->tel;
+        $payment->created_by = Auth::user()->id;
+        $payment->narrative = "Payment for insurance request ".$request->ref;
+        $payment->insurance_request_id = $request->req_id;
+        $payment->internal_ref = $request->ref.'_'.date("YmdHis").rand(1,100);
+        $payment->status = "Pending";
+        try{
+          if($payment->save()){
+            //set up to variable to send to yo!
+            $yo_payment = new YoAPI(env('YO_API_USERNAME'), env('YO_API_PASSWORD'), env('YO_API_URL'));
+            $yo_payment->set_instant_notification_url(env('YO_INSTANT_NOTIFICATION_URL'));
+            $yo_payment->set_failure_notification_url(env('YO_FAILURE_NOTICATION_URL'));
+            $yo_payment->set_external_reference($payment->internal_ref);
+            $yo_payment->set_nonblocking("TRUE");
+
+            //hit the yo api and get back an external ref and save it
+            $response = $yo_payment->ac_deposit_funds($payment->phone_number, $payment->amount, $payment->narrative);
+            if(isset($response['TransactionReference'])){
+              $payment->external_ref = $response['TransactionReference'];
+            }else{
+              flash("Error while processing at the payment provider, please try again later!");
+            }
+            flash("Check your handset to complete the payment.");
+            return redirect()->back();
+          }
+        }catch(Exception $e){
+          Log::info($e);
+          flash('Error while processing, please try again later!');
+          return redirect()->back();
+        }
     }
 
     /**
@@ -93,7 +136,7 @@ class PaymentController extends Controller
       $yo_request->public_key_file = base_path("/app/Library/YoPayments/Yo_Uganda_Public_Certificate.crt");
       $api_response = $yo_request->receive_payment_notification();
       if($api_response['is_verified']){
-        $payment = Payment::where(['internal_reference' => '$api_response['external_ref']'])->first();
+        $payment = Payment::where(['internal_reference' => '$api_response["external_ref"]'])->first();
         $payment->status = "SUCCEEDED";
         $payment->save();
         //Send user email notification

@@ -39,7 +39,7 @@ class InsuranceRequestController extends Controller
 
     public function getMyRequests(){
         return DataTables::of(InsuranceRequest::where(['user_id' => Auth::user()->id]))->addColumn('action', function ($request){
-            return '<a href="/insurance-request/'.$request->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Details</a>';
+            return '<a href="/insurance-request/'.$request->id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> View</a>'.'&nbsp'.'<a href="/payment/create/'.$request->id.'" class="btn btn-xs btn-primary"><i class="fa fa-money"></i> Pay</a>';
         })->make(true);
     }
 
@@ -60,7 +60,7 @@ class InsuranceRequestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(GetInsuranceRequest $request)
-    {     
+    {
         $ins = new InsuranceRequest();
         $ins->ref_no = $this->randomString();
         $ins->name = $request->name;
@@ -164,6 +164,7 @@ class InsuranceRequestController extends Controller
       if(Auth::user()->hasRole('Staff')){
         $ins = InsuranceRequest::find($request->_ins_req);
         $ins->status = $request->status;
+        $ins->amount = $request->amount;
         $ins->save();
         $update = new InsuranceRequestUpdate();
         $update->insurance_request_id = $request->_ins_req;

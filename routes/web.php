@@ -38,3 +38,8 @@ Route::patch('/admin/users','AdminController@updateUser')->name('admin.users.upd
 Route::resource('roles','RoleController');
 Route::resource('/users','UserController');
 Route::resource('permissions','PermissionController');
+Route::resource('/payments','PaymentController');
+
+Route::get('/payment/create/{id}', 'PaymentController@create');
+Route::post('/payments/yo/successipnlistener', 'PaymentController@paymentSuccessfull');
+Route::post('/payments/yo/failedipnlistener', 'PaymentController@paymentFailed');

@@ -1,5 +1,5 @@
   @extends('adminlte::page')
-
+@section('title', 'Change Password')
   @section('content')
     <div class="panel panel-default">
       <div class="panel-heading">

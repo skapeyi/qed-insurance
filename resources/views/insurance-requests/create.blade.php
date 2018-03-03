@@ -2,6 +2,7 @@
 @push('css')
 <link href="{{ asset('js/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
 @endpush
+@section('title', 'Submit Request')
 @section('content')
 
 <div class="panel panel-default">
@@ -103,7 +104,7 @@
 					</span>
 					@endif
 				</div>
-				
+
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">

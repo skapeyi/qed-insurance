@@ -1,11 +1,13 @@
   @extends('adminlte::page')
 
+@section('title', 'Profile')
+
   @section('content')
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 class="panel-title">Update Profile</h2>
     </div>
-    <div class="panel-body">      
+    <div class="panel-body">
       {!! Form::open(['route' => 'update-profile']) !!}
       <div class="form-group">
         {!! Form::label('name','Name') !!}

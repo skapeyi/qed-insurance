@@ -3,6 +3,7 @@
 <link href="{{ asset('css/timeline.css') }}" rel="stylesheet">
 @endpush
 
+@section('title', 'Make Requests')
 @section('content')
 
 <div class="panel panel-default">
@@ -187,7 +188,7 @@
 					@if(isset($ins->id_doc_url))
 					 <a href="{{URL::asset('/'.$ins->id_doc_url)}}" class="btn btn-primary"> Download Indentification Document </a>
 					@endif
-				</div>		
+				</div>
 			</div>
 		</div>
 
@@ -220,6 +221,15 @@
 		<div class="form-group">
 			{!! Form::label('status','Request Status') !!}
 			{!! Form::select('status', ['Pending'=>'Pending','Under Review' => 'Under Review','Cancelled' => 'Cancelled','Ready for Pickup' => 'Ready for Pickup','Completed' => 'Completed',], $ins->status, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('amount','Amount Customer Should Pay (UGX)') !!}
+			{!! Form::text('amount',$ins->amount,['class' => 'form-control']) !!}
+			@if ($errors->has('amount'))
+			<span class="help-block">
+				<strong>{{ $errors->first('amount') }}</strong>
+			</span>
+			@endif
 		</div>
 		@endhasrole
 

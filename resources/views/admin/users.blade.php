@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-
+@section('title', 'All Users')
 @section('content')
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -10,7 +10,7 @@
 		<div class="table-responsive">
 			<table class="table table-hover" id="users-table">
 				<thead>
-					<tr>						
+					<tr>
 						<th>Date Created</th>
 						<th>Name</th>
 						<th>Email</th>
@@ -18,11 +18,11 @@
 						<th>Telephone</th>
 						<th>Actions</th>
 					</tr>
-				</thead>				
+				</thead>
 			</table>
 		</div>
 		</div>
-	
+
 	</div>
 </div>
 @endsection
@@ -41,7 +41,7 @@ $(function() {
 			{ data: 'address', name: 'address' },
             { data: 'phone', name: 'phone' },
 			{ data: 'action', name:'action'}
-			
+
         ]
     });
 });
