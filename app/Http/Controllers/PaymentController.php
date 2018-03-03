@@ -72,6 +72,7 @@ class PaymentController extends Controller
             $response = $yo_payment->ac_deposit_funds($payment->phone_number, $payment->amount, $payment->narrative);
             if(isset($response['TransactionReference'])){
               $payment->external_ref = $response['TransactionReference'];
+              $payment->save();
             }else{
               flash("Error while processing at the payment provider, please try again later!");
             }
@@ -130,7 +131,7 @@ class PaymentController extends Controller
         //
     }
 
-    public function paymentSuccessful(){
+    public function paymentSuccessfull(){
       Log::info($request);
       $yo_request = new YoAPI(env('YO_API_USERNAME'), env('YO_API_PASSWORD'), env('YO_API_URL'));
       $yo_request->public_key_file = base_path("/app/Library/YoPayments/Yo_Uganda_Public_Certificate.crt");
@@ -140,6 +141,7 @@ class PaymentController extends Controller
         $payment->status = "SUCCEEDED";
         $payment->save();
         //Send user email notification
+        return response()->json('OK',200);
       }else{
         return response()->json("FAILED", 401);
       }
