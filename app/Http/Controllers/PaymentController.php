@@ -131,7 +131,7 @@ class PaymentController extends Controller
         //
     }
 
-    public function paymentSuccessfull(){
+    public function paymentSuccessfull(Request $request){
       Log::info($request);
       $yo_request = new YoAPI(env('YO_API_USERNAME'), env('YO_API_PASSWORD'), env('YO_API_URL'));
       $yo_request->public_key_file = base_path("/app/Library/YoPayments/Yo_Uganda_Public_Certificate.crt");
@@ -147,7 +147,7 @@ class PaymentController extends Controller
       }
     }
 
-    public function paymentFailed(){
+    public function paymentFailed(Request $request){
       Log::info($request);
       $yo_request = new YoAPI(env('YO_API_USERNAME'), env('YO_API_PASSWORD'), env('YO_API_URL'));
       $yo_request->public_key_file = base_path("/app/Library/YoPayments/Yo_Uganda_Public_Certificate.crt");
