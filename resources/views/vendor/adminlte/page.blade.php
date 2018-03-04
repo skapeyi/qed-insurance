@@ -111,6 +111,13 @@
                               <span>Manage Insurance Requests</span>
                             </a>
                           </li>
+
+                          <li class="">
+                            <a href="/payments">
+                              <i class="fa fa-money"></i>
+                              <span>Payments</span>
+                            </a>
+                          </li>
                           @endrole
 
                           @hasrole('Super Administrator')

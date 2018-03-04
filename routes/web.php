@@ -40,5 +40,6 @@ Route::resource('/users','UserController');
 Route::resource('permissions','PermissionController');
 Route::resource('/payments','PaymentController');
 Route::get('/payment/create/{id}', 'PaymentController@create');
+Route::get('/payments-data','PaymentController@getPayments')->name('payments.data');
 Route::post('/payments/yo/successipnlistener', 'PaymentController@paymentSuccessfull');
 Route::post('/payments/yo/failedipnlistener', 'PaymentController@paymentFailed');
